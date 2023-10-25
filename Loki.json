@@ -32,8 +32,8 @@
   "panels": [
     {
       "datasource": {
-        "type": "loki",
-        "uid": "1vIYE1T4k"
+        "type": "Loki",
+        "uid": "Loki"
       },
       "gridPos": {
         "h": 32,
@@ -56,8 +56,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "1vIYE1T4k"
+            "type": "Loki",
+            "uid": "Loki"
           },
           "expr": "{namespace=\"$namespace\", app=~\"$app_name\"} |~ \"$search\"",
           "queryType": "range",
