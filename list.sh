@@ -1,7 +1,4 @@
-#!/bin/bash
-
-# Get a list of files starting with "backup_minio"
-files=(backup_minio*)
+files=($(ls -lt backup_minio* | awk '{print $9}'))
 
 # Check if there are any files
 if [ ${#files[@]} -eq 0 ]; then
