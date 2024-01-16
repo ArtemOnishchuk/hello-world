@@ -1,6 +1,25 @@
-kubectl exec -n mongodb mongodb-0 -- \
-	bash -c 'gunzip -c /tmp/*.gz | mongorestore --archive -u $MONGODB_ROOT_USER  -p $MONGODB_ROOT_PASSWORD \
-    && rm -rf /tmp/*.gz ' > ./backup/restore_mongo.log 2>&1
+#!/bin/bash
 
-kubectl exec -n mongodb mongodb-0 -- \
-	bash -c 'mongodump --gzip --archive -u $MONGODB_ROOT_USER  -p $MONGODB_ROOT_PASSWORD' > ./backup/dump_`date "+%Y-%m-%d_%H-%M-%S"`.gz ./backup/restore_mongo.log 2> ./backup/backup_mongo.log
+# Проверка наличия аргумента
+if [ -z "$1" ]; then
+  echo "Usage: $0 [date]"
+  exit 1
+fi
+
+target_folder="$1"
+
+# Проверка существования папки
+if [ -d "$target_folder" ]; then
+  echo "Folder $target_folder exists."
+else
+  echo "Folder $target_folder not found."
+  echo "Existing folders:"
+  existing_folders=($(ls -d [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] 2>/dev/null))
+  if [ ${#existing_folders[@]} -eq 0 ]; then
+    echo "No existing folders found."
+  else
+    for folder in "${existing_folders[@]}"; do
+      echo "$folder"
+    done
+  fi
+fi
