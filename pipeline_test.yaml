@@ -1,0 +1,42 @@
+parameters:
+- name: domainFile
+  displayName: 'Domain File'
+  type: string
+  default: 'domains.txt'
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: UpdateVersions
+  displayName: 'Update Domain Versions'
+  steps:
+  - script: |
+      domainFile="${BUILD_SOURCESDIRECTORY}/${domainFile}"
+
+
+      if [ -f "$domainFile" ]; then
+        # Получаем строки из файла
+        mapfile -t domains < "$domainFile"
+
+
+        for domain in "${domains[@]}"; do
+
+          parts=($domain)
+
+
+          domainName=${parts[0]}
+          oldVersion=${parts[1]}
+          newVersion=${parts[2]}
+
+
+
+          echo "Updating $domainName from $oldVersion to $newVersion"
+        done
+      else
+        echo "File not found: $domainFile"
+      fi
+    displayName: 'Update Domain Versions'
