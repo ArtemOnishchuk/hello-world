@@ -1,0 +1,36 @@
+name: 'Git Log'
+
+trigger:
+  - none
+
+resources:
+  - pipelines.azuredevops.com
+
+variables:
+  - name: organization
+    value: 'YOUR_ORGANIZATION_NAME'
+  - name: project
+    value: 'YOUR_PROJECT_NAME'
+  - name: repository
+    value: 'YOUR_REPOSITORY_NAME'
+  - name: pat
+    value: 'YOUR_PERSONAL_ACCESS_TOKEN'
+  - name: agentPool
+    value: 'YOUR_AGENT_POOL_NAME'
+
+stages:
+  - stage: 'Get Git Log'
+    jobs:
+      - job: 'GetGitLog'
+        steps:
+          - task: AzureDevOpsCLI@2
+            inputs:
+              command: 'git'
+              arguments: 'log --all --format="%H|%an|%s"'
+              target: '$(organization)/$(project)/$(repository)'
+              pat: '$(pat)'
+              agentPool: '$(agentPool)'
+          - task: PublishBuildArtifacts@1
+            inputs:
+              path: '$(Build.ArtifactStagingDirectory)'
+              artifactName: 'gitlog'
