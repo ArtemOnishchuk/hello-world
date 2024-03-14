@@ -1,0 +1,13 @@
+domains:
+  - name: domain1
+    versions:
+      - ver1
+      - ver2
+  - name: domain2
+    versions:
+      - ver1
+      - ver2
+  - name: domain3
+    versions:
+      - ver1
+      - ver2
