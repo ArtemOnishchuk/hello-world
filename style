@@ -1,0 +1,29 @@
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        table {
+            background-color: #ADD8E6;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ffffff;
+            color: #000000; /* черный цвет текста */
+        }
+
+        tr:nth-child(odd) {
+            background-color: #6495ED;
+        }
+
+        tr:nth-child(even) {
+            background-color: #4169E1;
+        }
