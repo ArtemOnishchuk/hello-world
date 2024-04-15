@@ -1,0 +1,1 @@
+yq e '.sessions[] | .inputs[]  | .name + "@" + (.search-in.artifact | split("release:") | .[1]) | sub("@ ", "@")' sessions.yml
