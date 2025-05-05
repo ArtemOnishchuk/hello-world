@@ -1,5 +1,7 @@
 files=($(ls -lt backup_minio* | awk '{print $9}'))
 
+
+
 # Check if there are any files
 if [ ${#files[@]} -eq 0 ]; then
     echo "No files found."
